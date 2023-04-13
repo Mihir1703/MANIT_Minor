@@ -1,24 +1,42 @@
 import cv2
 import numpy as np
+import os
 
-img1 = cv2.imread('/home/mihir/Minor/Minor_project/raw_files/img_dataset/Photo_Dataset/Photos Dataset/3.jpg')
-img2 = cv2.imread('/home/mihir/Minor/Minor_project/processed_files/compressed/3.jpg.webp')
+psnr_values = []
+ssim_values = []
 
-width = 800
-height = 600
-img1 = cv2.resize(img1, (width, height))
-img2 = cv2.resize(img2, (width, height))
+for m in range(3,24335):
+    if os.path.isfile(f'/home/mihir/Minor/Minor_project/raw_files/img_dataset/Photo_Dataset/{m}.jpg'):
+
+        img1 = cv2.imread(f'/home/mihir/Minor/Minor_project/raw_files/img_dataset/Photo_Dataset/{m}.jpg')
+        img2 = cv2.imread(f'/home/mihir/Minor/Minor_project/processed_files/compressed/{m}.jpg.webp')
+
+        width = 800
+        height = 600
+        img1 = cv2.resize(img1, (width, height))
+        img2 = cv2.resize(img2, (width, height))
 
 
-img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY).astype(np.float32)
-img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY).astype(np.float32)
+        img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY).astype(np.float32)
+        img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY).astype(np.float32)
 
-mse = np.mean((img1_gray - img2_gray) ** 2)
-max_val = np.amax(img1_gray)
-psnr = 20 * np.log10(max_val / np.sqrt(mse))
+        mse = np.mean((img1_gray - img2_gray) ** 2)
+        max_val = np.amax(img1_gray)
+        psnr = 20 * np.log10(max_val / np.sqrt(mse))
 
-print('PSNR:', psnr)
+        # print('PSNR:', psnr)
+        
+    else:
+        continue
 
+
+avg_psnr = np.mean(psnr_values)
+# avg_ssim = np.mean(ssim_values)
+original_psnr = 40
+info_loss_percentage = ((original_psnr-avg_psnr) / original_psnr) * 100
+print(f"Average PSNR Value: {avg_psnr}")
+# print(f"Average SSIM Value: {avg_ssim}")
+print(f"Infommation Loss: {info_loss_percentage}%")
 
 
 # import pandas as pd
