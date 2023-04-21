@@ -11,9 +11,21 @@
 
 import csv
 
+def File_cleaning(file):
+  with open(file, 'r') as f:
+    reader = csv.reader(f)
+    rows = [row for row in reader if all(col != '' for col in row)]
+
+  with open(file + '_cleaned.csv', 'w') as f:
+    writer = csv.writer(f)
+    for row in rows:
+        writer.writerow(row)
+
+
 def compress_csv(csv_file):
+    File_cleaning(csv_file)
     # read CSV file into memory as a list of rows
-    with open(csv_file, 'r') as f:
+    with open(csv_file + '_cleaned.csv', 'r') as f:
         reader = csv.reader(f)
         rows = [row for row in reader]
 
@@ -72,8 +84,11 @@ def compress_csv(csv_file):
             for index, value in index_to_value[data_type].items():
                 writer.writerow([data_type, index, value])
 
+
+
 def decompress_csv(csv_file):
-    # read compressed CSV file and dictionaries into memory
+    # read compressed CSV file and dictionaries into memorY
+        
     with open(csv_file, 'r') as f:
         reader = csv.reader(f)
         compressed_rows = [row for row in reader]
@@ -102,3 +117,6 @@ def decompress_csv(csv_file):
     # write decompressed data to new CSV file
     with open(csv_file + '.decompressed', 'w') as f:
         writer = csv.writer(f)
+
+
+compress_csv('/home/mihir/Minor/Minor_project/raw_files/basket_analysis.csv')

@@ -10,7 +10,7 @@ def compress_image(input_dir,output_dir):
     for filename in os.listdir(input_dir):
         input_file = os.path.join(input_dir, filename)
         output_file = os.path.join(output_dir, filename)
-        if filename.endswith('.jpg') or filename.endswith('.png'):
+        if filename.endswith('.jpg') or filename.endswith('.jpeg'):
             # Use WebP format to compress the image file
             command = f'cwebp -q 80 {input_file} -o {output_file}.webp'
             subprocess.call(command, shell=True)
@@ -52,7 +52,7 @@ def decompress_image(input_dir,output_dir):
 
 import time
 start_time = time.time()
-print('Compressing images...', compress_image("/home/mihir/coding/Minor/raw_files/img_dataset/Photo_Dataset/Photos Dataset", "/home/mihir/coding/Minor/processed_files/image_compressed"))
+print('Compressing images...', compress_image("/home/mihir/Minor/Minor_project/raw_files/Lungs_Cancer_Dataset/lung_colon_image_set/colon_image_sets/colon_aca", "/home/mihir/Minor/Minor_project/processed_files/Lungs_image_compressed"))
 print("--- %s seconds ---" % (time.time() - start_time))
 # if __name__ == '__main__':
 #     print('Compressing images...', compress_image("/home/mihir/coding/Minor/raw_files/video", "/home/mihir/coding/Minor/processed_files/video"))

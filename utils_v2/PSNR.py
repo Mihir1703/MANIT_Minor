@@ -5,11 +5,11 @@ import os
 psnr_values = []
 ssim_values = []
 
-for m in range(3,24335):
-    if os.path.isfile(f'/home/mihir/Minor/Minor_project/raw_files/img_dataset/Photo_Dataset/{m}.jpg'):
+for m in range(1,5001):
+    if os.path.isfile(f'/home/mihir/Minor/Minor_project/raw_files/Lungs_Cancer_Dataset/lung_colon_image_set/colon_image_sets/colon_aca/colonca{m}.jpeg'):
 
-        img1 = cv2.imread(f'/home/mihir/Minor/Minor_project/raw_files/img_dataset/Photo_Dataset/{m}.jpg')
-        img2 = cv2.imread(f'/home/mihir/Minor/Minor_project/processed_files/compressed/{m}.jpg.webp')
+        img1 = cv2.imread(f'/home/mihir/Minor/Minor_project/raw_files/Lungs_Cancer_Dataset/lung_colon_image_set/colon_image_sets/colon_aca/colonca{m}.jpeg')
+        img2 = cv2.imread(f'/home/mihir/Minor/Minor_project/processed_files/Lungs_image_compressed/colonca{m}.jpeg.webp')
 
         width = 800
         height = 600
@@ -22,7 +22,11 @@ for m in range(3,24335):
 
         mse = np.mean((img1_gray - img2_gray) ** 2)
         max_val = np.amax(img1_gray)
-        psnr = 20 * np.log10(max_val / np.sqrt(mse))
+        if mse!=0:
+            psnr = 20 * np.log10(max_val / np.sqrt(mse))
+
+        psnr_values.append(psnr)
+        # print()
 
         # print('PSNR:', psnr)
         
@@ -31,9 +35,10 @@ for m in range(3,24335):
 
 
 avg_psnr = np.mean(psnr_values)
+# print(psnr_values,avg_psnr)
 # avg_ssim = np.mean(ssim_values)
-original_psnr = 40
-info_loss_percentage = ((original_psnr-avg_psnr) / original_psnr) * 100
+original_psnr = 42
+info_loss_percentage = ((original_psnr - avg_psnr) / original_psnr) * 100
 print(f"Average PSNR Value: {avg_psnr}")
 # print(f"Average SSIM Value: {avg_ssim}")
 print(f"Infommation Loss: {info_loss_percentage}%")

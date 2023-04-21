@@ -4,7 +4,7 @@ import numpy as np
 import math
 
 # Define the file paths of the original and processed image datasets
-original_dataset_path = '/home/mihir/Minor/Minor_project/raw_files/Photos_Dataset'
+original_dataset_path = '/home/mihir/Minor/Minor_project/raw_files/Images_1/Ads'
 processed_dataset_path = '/home/mihir/Minor/Minor_project/processed_files/compressed'
 
 # Load the images from the original and processed datasets
